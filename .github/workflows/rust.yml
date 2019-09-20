@@ -3,12 +3,14 @@ name: Rust
 on:
   pull_request:
     branches:
-    - master
+      - master
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Test in docker
-      run: docker-compose -f test/integration/docker-compose.yml up --exit-code-from lightning
+      - uses: actions/checkout@master
+      - name: Test in docker
+        run: docker-compose -f test/integration/docker-compose.yml up --exit-code-from lightning
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
